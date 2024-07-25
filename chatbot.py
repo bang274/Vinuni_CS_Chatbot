@@ -4,8 +4,8 @@ from llama_index.llms.openai import OpenAI
 import openai
 import prompt
 from llama_index.core.memory.chat_memory_buffer  import ChatMemoryBuffer
-
-openai.api_key = st.secrets._secrets
+st.secrets._secrets
+openai.api_key = "sk-proj-VGbpY2CaRoVFDnX4l0Y7T3BlbkFJzyNWnxz1amsUsFpcRVqK"
 
 avatar_img = {
     "user": "🧑🏾‍🎓",
