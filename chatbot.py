@@ -3,7 +3,7 @@ from llama_index.core import VectorStoreIndex, ServiceContext, Document, SimpleD
 from llama_index.llms.openai import OpenAI
 import openai
 import prompt
-# from llama_index. import ChatMemoryBuffer
+from llama_index.core.memory.chat_memory_buffer  import ChatMemoryBuffer
 
 openai.api_key = st.secrets["openai_key"]
 
@@ -38,26 +38,26 @@ def load_data():
         return index
 
 
-# memory = ChatMemoryBuffer.from_defaults(token_limit=1500)
-# index = load_data()
-# chat_engine = index.as_chat_engine(
-#     chat_mode="context", memory=memory, system_prompt=prompt.prompt, verbose=True)
+memory = ChatMemoryBuffer.from_defaults(token_limit=1500)
+index = load_data()
+chat_engine = index.as_chat_engine(
+    chat_mode="context", memory=memory, system_prompt=prompt.prompt, verbose=True)
 
-# # Prompt for user input and save to chat history
-# if prompt := st.chat_input("Your question"):
-#     st.session_state.chat_history.append({"role": "user", "content": prompt})
+# Prompt for user input and save to chat history
+if prompt := st.chat_input("Your question"):
+    st.session_state.chat_history.append({"role": "user", "content": prompt})
 
-#     # Display the chat history
-#     for message in st.session_state.chat_history:
-#         with st.chat_message(message["role"], avatar = avatar_img[message["role"]]):
-#             st.write(message["content"])
+    # Display the chat history
+    for message in st.session_state.chat_history:
+        with st.chat_message(message["role"], avatar = avatar_img[message["role"]]):
+            st.write(message["content"])
             
-#     # If last message is not from the assistant, generate a new response
-#     if st.session_state.chat_history and st.session_state.chat_history[-1]["role"] != "assistant":
-#         with st.chat_message("assistant", avatar = avatar_img["assistant"]):
-#             with st.spinner("Thinking..."):
-#                 response = chat_engine.chat(prompt)
-#                 st.write(response.response)
-#                 message = {"role": "assistant", "content": response.response}
-#                 st.session_state.chat_history.append(message)
+    # If last message is not from the assistant, generate a new response
+    if st.session_state.chat_history and st.session_state.chat_history[-1]["role"] != "assistant":
+        with st.chat_message("assistant", avatar = avatar_img["assistant"]):
+            with st.spinner("Thinking..."):
+                response = chat_engine.chat(prompt)
+                st.write(response.response)
+                message = {"role": "assistant", "content": response.response}
+                st.session_state.chat_history.append(message)
 
