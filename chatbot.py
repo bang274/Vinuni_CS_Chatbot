@@ -5,7 +5,7 @@ import openai
 import prompt
 from llama_index.core.memory.chat_memory_buffer  import ChatMemoryBuffer
 
-openai.api_key = st.secrets["openai_key"]
+openai.api_key = st.secrets._secrets
 
 avatar_img = {
     "user": "🧑🏾‍🎓",
